@@ -5,6 +5,11 @@ namespace DesafioFundamentos.Models
         private decimal precoInicial = 0;
         private decimal precoPorHora = 0;
         private List<string> veiculos = new List<string>();
+        
+        private bool ExisteVeiculo(string placa)
+        {
+            return veiculos.Any(x => x.ToUpper() == placa.ToUpper());
+        }
 
         public Estacionamento(decimal precoInicial, decimal precoPorHora)
         {
@@ -19,14 +24,14 @@ namespace DesafioFundamentos.Models
             Console.WriteLine("Digite a placa do veículo para estacionar:");
             string placa = Console.ReadLine();
             
-            if (veiculos.Any(x => x.ToUpper() == placa.ToUpper()))
-            {
-                Console.WriteLine("Veículo já estacionado!");
-            }
-            else
+            if (!ExisteVeiculo(placa))
             {
                 veiculos.Add(placa);
                 Console.WriteLine("Veículo estacionado!");
+            }
+            else
+            {
+                Console.WriteLine("Veículo já estacionado!");
             }
             
         }
@@ -42,7 +47,7 @@ namespace DesafioFundamentos.Models
             placa = Console.ReadLine();
             
             // Verifica se o veículo existe
-            if (veiculos.Any(x => x.ToUpper() == placa.ToUpper()))
+            if (ExisteVeiculo(placa))
             {
                 Console.WriteLine("Digite a quantidade de horas que o veículo permaneceu estacionado:");
 
